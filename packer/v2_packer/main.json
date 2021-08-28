@@ -6,7 +6,7 @@
             "region":        "{{user `region`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username":  "{{user `ssh_username`}}",
-            "ami_name":      "{{user `ami_name`}}-{{isotime \"2006-01-02\"}}",
+            "ami_name":      "{{user `ami_name`}}-{{timestamp}}",
             "source_ami":    "{{user `source_ami`}}"
         }
     ],
