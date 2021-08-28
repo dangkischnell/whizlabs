@@ -6,7 +6,7 @@
             "region":        "{{user `region`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username":  "{{user `ssh_username`}}",
-            "ami_name":      "{{user `ami_name`}}-{{isotime | clean_resource_name}}",
+            "ami_name":      "{{user `ami_name`}}-{{isotime \"2006-01-02\"}}",
             "source_ami":    "{{user `source_ami`}}"
         }
     ],
@@ -23,7 +23,7 @@
             "type":   "shell",
             "inline": [
                 "sudo mv /tmp/index.html /var/www/html/index.html",
-                "sleep 20",
+                "sleep 10",
                 "sudo systemctl restart nginx"         
             ]
         }

@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   profile    = "packer"
-  region     = "us-east-1"
+  region     = "ap-southeast-1"
 }
 resource "aws_launch_template" "web" {
   name_prefix = "web-"
