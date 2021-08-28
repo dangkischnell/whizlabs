@@ -18,10 +18,10 @@ pipeline {
         stage('Deploying Basic Infra with V1 VMS') {
             steps {
                 sh '''
-                cd tf
+                cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-077b78992957fe05b' -out myplan
+                terraform plan -var='ami_id=ami-0772503ce7123061b' -out myplan
                 terraform apply --auto-approve myplan
                 terraform output elb_dns_name
                 '''
@@ -34,12 +34,12 @@ pipeline {
             }
             steps {
                 sh '''
-                cd tf
+                cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-05e003760ad016513' -var='desired_capacity=3' -out myplan
+                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=3' -out myplan
                 terraform apply --auto-approve myplan
-                terraform plan -var='ami_id=ami-05e003760ad016513' -var='desired_capacity=2' -out myplan
+                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=2' -out myplan
                 terraform apply --auto-approve myplan
                 '''
             }
@@ -51,12 +51,12 @@ pipeline {
             }
             steps {
                 sh '''
-                cd tf
+                cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-05e003760ad016513' -var='desired_capacity=3' -out myplan
+                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=3' -out myplan
                 terraform apply --auto-approve myplan
-                terraform plan -var='ami_id=ami-05e003760ad016513' -var='desired_capacity=2' -out myplan
+                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=2' -out myplan
                 terraform apply --auto-approve myplan
                 '''
             }
@@ -68,7 +68,7 @@ pipeline {
             }
             steps {
                 sh '''
-                cd tf
+                cd cd/tf
                 terraform destroy --auto-approve
                 '''
             }

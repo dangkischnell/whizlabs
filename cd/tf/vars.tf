@@ -1,19 +1,19 @@
 #Batch1VPC4
 variable "vpc_id" {
-    default = "vpc-f36df88e"
+    default = "vpc-3a00c75c"
 }
 
 variable "pub_subnets" {
-    default = ["subnet-7cc8b11a"]
+    default = ["subnet-cfca61a9"]
 }
 
 variable "ami_id" {
   type        = string
-  default     = "ami-0d0a2c989446e6699"
+  default     = "ami-0772503ce7123061b"
 }
 
 variable "security_groups" {
-    default = [ "sg-750e0071" ]
+    default = [ "sg-5bf26c11" ]
 }
 
 variable "desired_capacity" {
