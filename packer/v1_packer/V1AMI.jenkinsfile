@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+    stages {
+        stage('Intializing the project') {
+            steps {
+                echo 'Welcome to Opstree Labs' 
+            }
+        }
+        stage('Cloning code') {
+            steps {
+                git branch: 'main' , url: 'https://github.com/OT-TRAINING/whizlabs.git'
+            }
+        }
+        stage('Validating Packer Code') {
+            steps {
+                sh '''
+                cd packer/v1_packer
+                packer validate --var-file variables.json main.json
+                '''
+            }
+        }
+        stage('Buidling Packer AMI for V1') {
+            steps {
+                sh '''
+                cd packer/v1_packer
+                packer build --var-file=variables.json main.json
+                '''
+            }
+        }
+        stage('Printing AMI ID for V1 AMI') {
+            steps {
+                sh '''
+                cd packer/v1_packer
+                AMI_ID=$(jq -r '.builds[-1].artifact_id' output.json | cut -d ":" -f2)
+                echo AMI ID is: $AMI_ID
+                '''
+            }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'packer/v1_packer/output.json', followSymlinks: false
+        }
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "builders": [
+        {
+            "type":          "amazon-ebs",
+            "profile":       "packer",
+            "region":        "{{user `region`}}",
+            "instance_type": "{{user `instance_type`}}",
+            "ssh_username":  "{{user `ssh_username`}}",
+            "ami_name":      "{{user `ami_name`}}-{{isotime | clean_resource_name}}",
+            "source_ami":    "{{user `source_ami`}}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type":   "shell",
+            "script": "./packages.sh"
+        },
+        {  "type": "file",  
+            "source": "./index.html",  
+            "destination": "/tmp/index.html"
+        },
+        {
+            "type":   "shell",
+            "inline": [
+                "sudo mv /tmp/index.html /var/www/html/index.html",
+                "sleep 20",
+                "sudo systemctl restart nginx"         
+            ]
+        }
+    ],
+    "post-processors": [
+        {
+            "type":  "manifest",
+            "output":"output.json"
+        }
+    ]
+}
