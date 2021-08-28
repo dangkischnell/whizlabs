@@ -2,10 +2,6 @@ folder('demo')
 folder('demo/packer')
 
 pipelineJob("demo/packer/v1_ami") {
-
-}
-
-pipelineJob("demo/packer/v1_ami") {
 	definition {
 		cpsScm {
 			scm {
