@@ -3,6 +3,7 @@ provider "aws" {
   profile    = "packer"
   region     = "ap-southeast-1"
 }
+
 resource "aws_launch_template" "web" {
   name_prefix = "web-"
   image_id = var.ami_id 
@@ -33,7 +34,6 @@ resource "aws_elb" "web_elb" {
     instance_protocol = "http"
   }
 }
-
 
 resource "aws_autoscaling_group" "web" {
   name = "web-asg"
