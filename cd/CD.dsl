@@ -1,3 +1,4 @@
+folder('demo')
 folder('demo/CD')
 
 pipelineJob("demo/CD/RecreateDeployment") {
