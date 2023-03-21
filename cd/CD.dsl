@@ -7,7 +7,7 @@ pipelineJob("demo/CD/RecreateDeployment") {
 			scm {
 				git {
 					remote {
-						url("https://github.com/OT-TRAINING/whizlabs.git")
+						url("git@github.com:dangkischnell/whizlabs.git")
 					}
 					branch("*/main")
 				}
@@ -24,7 +24,7 @@ pipelineJob("demo/CD/RollingDeployment") {
 			scm {
 				git {
 					remote {
-						url("https://github.com/OT-TRAINING/whizlabs.git")
+						url("git@github.com:dangkischnell/whizlabs.git")
 					}
 					branch("*/main")
 				}
