@@ -1,7 +1,7 @@
 
 provider "aws" {
   profile    = "packer"
-  region     = "ap-southeast-1"
+  region     = "eu-central-1"
 }
 
 resource "aws_launch_template" "web" {
