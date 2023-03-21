@@ -63,8 +63,8 @@ pipeline {
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -out myplan
-                terraform apply --auto-approve myplan
+
+                terraform apply --auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET} -var ami_id=ami-0499632f10efc5a62
                 '''
               }
             }
