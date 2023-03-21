@@ -74,10 +74,14 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {  
                 sh '''
                 cd cd/tf
                 terraform destroy --auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
+              }
             }
         }
     }
