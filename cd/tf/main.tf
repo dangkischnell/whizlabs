@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "web" {
   min_size             = 1
   max_size             = 2
 
-  load_balancers = ["${aws_elb.elb1.id}"]
+  load_balancers = ["${aws_elb.web_elb.id}"]
   health_check_type = "ELB"
 
   lifecycle {
