@@ -17,6 +17,9 @@ pipeline {
         }
         stage('Deploying Basic Infra with V1 VMS') {
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) { 
                 sh '''
                 cd cd/tf
                 terraform init
@@ -24,6 +27,7 @@ pipeline {
                 terraform apply --auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET} -var ami_id=ami-01a2825a801771f57
                 terraform output elb_dns_name
                 '''
+              }
             }
         }
         stage('Step1 of Rolling Deployment') {
@@ -32,15 +36,17 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) { 
                 sh '''
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=3' -out myplan
-                terraform apply --auto-approve myplan
-                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=2' -out myplan
-                terraform apply --auto-approve myplan
+                terraform apply --auto-approve -var ami_id=ami-01a2825a801771f57 -var desired_capacity=3  -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform apply --auto-approve -var ami_id=ami-01a2825a801771f57 -var desired_capacity=2   -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
+              }
             }
         }
         stage('Step2 of Rolling Deployment') {
@@ -49,15 +55,17 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {                
                 sh '''
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=3' -out myplan
-                terraform apply --auto-approve myplan
-                terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -var='desired_capacity=2' -out myplan
-                terraform apply --auto-approve myplan
+                terraform apply --auto-approve -var ami_id=ami-01a2825a801771f57 -var desired_capacity=3  -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform apply --auto-approve -var ami_id=ami-01a2825a801771f57 -var desired_capacity=3  -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
+              }
             }
         }
         stage('Terminate') {
@@ -68,7 +76,7 @@ pipeline {
             steps {
                 sh '''
                 cd cd/tf
-                terraform destroy --auto-approve
+                terraform destroy --auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
             }
         }
