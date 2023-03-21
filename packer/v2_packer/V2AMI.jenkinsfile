@@ -16,10 +16,8 @@ pipeline {
             withCredentials([
             usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
             ]) {                      
-                sh '''
-                cd packer/v2_packer
-                packer validate --var-file variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}
-                '''
+                sh 'cd packer/v2_packer'
+                sh 'packer validate --var-file variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}'
                }
             }
         }
@@ -28,10 +26,8 @@ pipeline {
             withCredentials([
             usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
             ]) {                 
-                sh '''
-                cd packer/v2_packer
-                packer build --var-file=variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}
-                '''
+                sh 'cd packer/v2_packer'
+                sh 'packer build --var-file=variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}'
                }
             }
         }
