@@ -30,8 +30,8 @@ resource "aws_autoscaling_group" "web" {
   name                 = "terraform-asg-node-app-${aws_launch_configuration.lc.name}"
   launch_configuration = "${aws_launch_configuration.lc.name}"
   availability_zones = ["eu-central-1a", "eu-central-1b"]
-  min_size             = 1
-  max_size             = 2
+  min_size             = 2
+  max_size             = 3
 
   load_balancers = ["${aws_elb.web_elb.id}"]
   health_check_type = "ELB"
