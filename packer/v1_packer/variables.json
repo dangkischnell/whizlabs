@@ -1,5 +1,5 @@
 {
-    "source_ami":    "ami-0499632f10efc5a62",
+    "source_ami":    "ami-01a2825a801771f57",
     "instance_type": "t2.micro",
     "ssh_username":  "ubuntu",
     "ami_name":      "Nginx-AMI-V_1.0.0",

@@ -5,7 +5,7 @@
       "builder_type": "amazon-ebs",
       "build_time": 1627406339,
       "files": null,
-      "artifact_id": "eu-central-1:ami-0fb9e1b746e94e70a",
+      "artifact_id": "eu-central-1ami-01a2825a801771f57:ami-0fb9e1b746e94e70a",
       "packer_run_uuid": "db90cbb1-d46f-3f83-0f3a-4dbdd0587825",
       "custom_data": null
     }
