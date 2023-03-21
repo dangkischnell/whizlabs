@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "web" {
   health_check_type = "ELB"
 
   lifecycle {
-    create_before_destroy = false
+    create_before_destroy = true
   }
 }
 
