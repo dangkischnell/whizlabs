@@ -7,7 +7,7 @@ pipelineJob("demo/packer/v1_ami") {
 			scm {
 				git {
 					remote {
-						url("https://github.com/OT-TRAINING/whizlabs.git")
+						url("git@github.com:dangkischnell/whizlabs.git")
 					}
 					branch("*/main")
 				}
@@ -25,7 +25,7 @@ pipelineJob("demo/packer/v2_ami") {
 			scm {
 				git {
 					remote {
-						url("https://github.com/OT-TRAINING/whizlabs.git")
+						url("git@github.com:dangkischnell/whizlabs.git")
 					}
 					branch("*/main")
 				}
