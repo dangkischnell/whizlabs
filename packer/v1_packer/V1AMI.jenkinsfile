@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Cloning code') {
             steps {
-                git branch: 'main' , url: 'https://github.com/OT-TRAINING/whizlabs.git'
+                git branch: 'main' , url: 'git@github.com:dangkischnell/whizlabs.git'
             }
         }
         stage('Validating Packer Code') {
