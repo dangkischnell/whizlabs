@@ -1,6 +1,6 @@
 
 provider "aws" {
-  profile    = "packer"
+  # profile    = "packer"
   region     = "eu-central-1"
 }
 
