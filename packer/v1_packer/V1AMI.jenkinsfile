@@ -17,11 +17,7 @@ pipeline {
                     usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
                     string(credentialsId: 'github_personal_token', variable: 'GITHUB_TOKEN'),
                     ]) {                      
-                        sh '''
-                        // rm -rf whizlabs
-                        // git clone https://${GITHUB_TOKEN}@github.com/dangkischnell/whizlabs.git
-                        packer validate --var-file variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json
-                        '''
+                        sh 'packer validate --var-file variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json'
                     }
             }
         }
