@@ -1,9 +1,13 @@
-
+variable "access_key" {}
+variable "secret_key" {}
+terraform {
+  required_version = ">= 0.14"
+}
 provider "aws" {
-  profile    = "default"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
   region     = "eu-central-1"
 }
-
 resource "aws_launch_template" "web" {
   name_prefix = "web-"
   image_id = var.ami_id 

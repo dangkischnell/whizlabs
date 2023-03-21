@@ -17,14 +17,18 @@ pipeline {
         }
         stage('Deploying Basic Infra with V1 VMS') {
             steps {
+              withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {
                 sh '''
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0772503ce7123061b' -out myplan
-                terraform apply --auto-approve myplan
-                terraform output elb_dns_name
+                terraform plan -var='ami_id=ami-0772503ce7123061b' -out myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform apply --auto-approve myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform output elb_dns_name -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
+              }
             }
         }
         stage('Bringing down V1 VMs') {
