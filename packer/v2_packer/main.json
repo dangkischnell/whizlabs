@@ -2,7 +2,6 @@
     "builders": [
         {
             "type":          "amazon-ebs",
-            "profile":       "packer",
             "region":        "{{user `region`}}",
             "instance_type": "{{user `instance_type`}}",
             "ssh_username":  "{{user `ssh_username`}}",
