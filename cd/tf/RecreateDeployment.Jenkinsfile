@@ -41,8 +41,8 @@ pipeline {
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0772503ce7123061b' -var='min_capacity=0' -var='desired_capacity=0' -out myplan
-                terraform apply --auto-approve myplan
+                terraform plan -var='ami_id=01a2825a801771f57' -var='min_capacity=0' -var='desired_capacity=0' -out myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform apply --auto-approve myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
             }
         }
