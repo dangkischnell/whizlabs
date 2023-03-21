@@ -17,9 +17,33 @@ resource "aws_launch_template" "web" {
   }
 }
 
+
+
+resource "aws_security_group" "elbsg" {
+  name = "security_group_for_elb"
+  ingress {
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_elb" "web_elb" {
   name = "web-elb"
-  security_groups = var.security_groups
+  #security_groups = var.security_groups
+  security_groups = ["${aws_security_group.elbsg.id}"]
   # subnets = var.pub_subnets
   availability_zones = ["eu-central-1a", "eu-central-1b"]
   cross_zone_load_balancing   = true
@@ -37,7 +61,6 @@ resource "aws_elb" "web_elb" {
     instance_protocol = "http"
   }
 }
-
 resource "aws_autoscaling_group" "web" {
   name = "web-asg"
   min_size             = var.min_capacity
