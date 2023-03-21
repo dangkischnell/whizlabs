@@ -42,7 +42,7 @@ pipeline {
                 terraform init
                 terraform validate
                 
-                terraform apply --auto-approve -var ami_id=01a2825a801771f57 -var min_capacity=0'-var desired_capacity=0 -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform apply --auto-approve -var ami_id=01a2825a801771f57 -var min_capacity=0 -var desired_capacity=0 -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
             }
         }
