@@ -37,6 +37,9 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {
                 sh '''
                 cd cd/tf
                 terraform init
@@ -44,6 +47,7 @@ pipeline {
                 
                 terraform apply --auto-approve -var ami_id=01a2825a801771f57 -var min_capacity=0 -var desired_capacity=0 -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
+                }
             }
         }
         stage('Bringing up V2 VMs') {
@@ -52,6 +56,9 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {                
                 sh '''
                 cd cd/tf
                 terraform init
@@ -59,6 +66,7 @@ pipeline {
                 terraform plan -var='ami_id=ami-0dfbacb1982b17aba' -out myplan
                 terraform apply --auto-approve myplan
                 '''
+              }
             }
         }
         stage('Terminate') {
@@ -67,10 +75,14 @@ pipeline {
                 ok "Yes, we should."
             }
             steps {
+                withCredentials([
+                usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+              ]) {                
                 sh '''
                 cd cd/tf
                 terraform destroy --auto-approve
                 '''
+              }
             }
         }
     }
