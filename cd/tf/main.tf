@@ -21,6 +21,7 @@ resource "aws_elb" "web_elb" {
   name = "web-elb"
   security_groups = var.security_groups
   # subnets = var.pub_subnets
+  availability_zones = ["eu-central-1a", "eu-central-1b"]
   cross_zone_load_balancing   = true
   health_check {
     healthy_threshold = 2
