@@ -16,7 +16,10 @@ pipeline {
                 withCredentials([
                     usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
                     ]) {                      
-                        sh 'packer validate --var-file variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json'
+                        sh '''
+                        cd packer/v1_packer
+                        packer validate --var-file variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json
+                        '''
                     }
             }
         }
@@ -25,14 +28,17 @@ pipeline {
                 withCredentials([
                 usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
                 ]) {                 
-                    sh 'packer build --var-file=variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json'
+                    sh '''
+                      cd packer/v1_packer
+                      packer build --var-file=variables.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/v1_packer/main.json
+                      '''
                    }
                 }
         }
         stage('Printing AMI ID for V1 AMI') {
             steps {
                 sh '''
-                cd whizlabs/packer/v1_packer
+                cd packer/v1_packer
                 AMI_ID=$(jq -r '.builds[-1].artifact_id' output.json | cut -d ":" -f2)
                 echo AMI ID is: $AMI_ID
                 '''
