@@ -24,7 +24,7 @@ pipeline {
                 cd cd/tf
                 terraform init
                 terraform validate
-                terraform plan -var='ami_id=ami-0772503ce7123061b' -out myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+                terraform plan -var='ami_id=ami-01a2825a801771f57' -out myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 terraform apply --auto-approve myplan -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 terraform output elb_dns_name -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
