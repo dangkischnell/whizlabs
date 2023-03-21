@@ -13,18 +13,26 @@ pipeline {
         }
         stage('Validating Packer Code') {
             steps {
+            withCredentials([
+            usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+            ]) {                      
                 sh '''
                 cd packer/v2_packer
-                packer validate --var-file=variables.json main.json
+                packer validate --var-file variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}
                 '''
+               }
             }
         }
         stage('Buidling Packer AMI for V2') {
             steps {
+            withCredentials([
+            usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+            ]) {                 
                 sh '''
                 cd packer/v2_packer
-                packer build --var-file=variables.json main.json
+                packer build --var-file=variables.json main.json -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET}
                 '''
+               }
             }
         }
         stage('Printing AMI ID for V2 AMI') {
