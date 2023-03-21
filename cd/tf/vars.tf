@@ -1,4 +1,11 @@
 #Batch1VPC4
+variable "access_key" {
+    default = ""
+}
+variable "secret_key" {
+    default = ""
+}
+
 variable "vpc_id" {
     default = "vpc-3a00c75c"
 }
@@ -9,7 +16,7 @@ variable "pub_subnets" {
 
 variable "ami_id" {
   type        = string
-  default     = "ami-0772503ce7123061b"
+  default     = "ami-01a2825a801771f57"
 }
 
 variable "security_groups" {

@@ -1,5 +1,3 @@
-variable "access_key" {}
-variable "secret_key" {}
 terraform {
   required_version = ">= 0.14"
 }
@@ -22,7 +20,7 @@ resource "aws_launch_template" "web" {
 resource "aws_elb" "web_elb" {
   name = "web-elb"
   security_groups = var.security_groups
-  subnets = var.pub_subnets
+  # subnets = var.pub_subnets
   cross_zone_load_balancing   = true
   health_check {
     healthy_threshold = 2
