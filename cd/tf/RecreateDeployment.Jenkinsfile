@@ -80,7 +80,7 @@ pipeline {
               ]) {                
                 sh '''
                 cd cd/tf
-                terraform destroy --auto-approve
+                terraform destroy --auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
                 '''
               }
             }
